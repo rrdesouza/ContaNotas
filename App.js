@@ -7,36 +7,30 @@
  */
 
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View, Image, TextInput, Button } from 'react-native';
+import {Platform, StyleSheet, Text, View, Image, TextInput, TouchableOpacity } from 'react-native';
 
-class Notas extends Component<Props> {
-  constructor(props){
-    nota = this.props.nota
-    super(props);
-  }
-  render(){
-    return(
-      <View style={styles.container}>
-        <Image style={styles.notas}  source={require('./img/2R.jpg')}/>
-        <TextInput
-          keyboardType={'numeric'}
-          style={styles.textoInput}
-          onChangeText={(text) => {this.setState({notas2: text});}}
-        />
-      </View>
-    )
-  }
-}
 
 type Props = {};
 export default class App extends Component<Props> {
   constructor(props) {
    super(props);
-   this.state = {total: '0', notas2: '0', notas5: '0', notas10: '0', notas20: '0', notas50: '0', notas100: '0'};
+   this.state = {total: '', notas2: '', notas5: '', notas10: '', notas20: '', notas50: '', notas100: ''};
   }
 
   soma(){
     return this.state.notas2*2+this.state.notas5*5+this.state.notas10*10+this.state.notas20*20+this.state.notas50*50+this.state.notas100*100
+  }
+
+  zerar = () => {
+    this.setState({
+      total: '',
+      notas2: '',
+      notas5: '',
+      notas10: '',
+      notas20: '',
+      notas50: '',
+      notas100: ''
+    });
   }
 
 
@@ -58,6 +52,7 @@ export default class App extends Component<Props> {
         <View style={styles.container}>
           <Image style={styles.notas}  source={require('./img/2R.jpg')}/>
           <TextInput
+            value={this.state.notas2}
             keyboardType={'numeric'}
             style={styles.textoInput}
             onChangeText={(text) => {this.setState({notas2: text});}}
@@ -67,6 +62,7 @@ export default class App extends Component<Props> {
         <View style={styles.container}>
           <Image style={styles.notas} source={require('./img/5R.jpg')}/>
           <TextInput
+            value={this.state.notas5}
             keyboardType={'numeric'}
             style={styles.textoInput}
             onChangeText={(text) => {this.setState({notas5: text});}}
@@ -76,6 +72,7 @@ export default class App extends Component<Props> {
         <View style={styles.container}>
           <Image style={styles.notas} source={require('./img/10R.jpg')}/>
           <TextInput
+            value={this.state.notas10}
             keyboardType={'numeric'}
             style={styles.textoInput}
             onChangeText={(text) => {this.setState({notas10: text});}}
@@ -85,6 +82,7 @@ export default class App extends Component<Props> {
         <View style={styles.container}>
           <Image style={styles.notas} source={require('./img/20R.jpg')}/>
           <TextInput
+            value={this.state.notas20}
             keyboardType={'numeric'}
             style={styles.textoInput}
             onChangeText={(text) => {this.setState({notas20: text});}}
@@ -94,6 +92,7 @@ export default class App extends Component<Props> {
         <View style={styles.container}>
           <Image style={styles.notas} source={require('./img/50R.jpg')}/>
           <TextInput
+            value={this.state.notas50}
             keyboardType={'numeric'}
             style={styles.textoInput}
             onChangeText={(text) => {this.setState({notas50: text});}}
@@ -103,14 +102,23 @@ export default class App extends Component<Props> {
         <View style={styles.container}>
           <Image style={styles.notas} source={require('./img/100R.jpg')}/>
           <TextInput
+            value={this.state.notas100}
             keyboardType={'numeric'}
             style={styles.textoInput}
             onChangeText={(text) => {this.setState({notas100: text});}}
           />
           <Text style={styles.textoNotas}>R${nota100}</Text>
+
         </View>
         <View style={styles.container}>
           <Text style={{fontSize:30, marginLeft:10,color:'red'}}>Total: R$ {total} </Text>
+          <TouchableOpacity
+            style={{width:100,  height: 35, marginLeft:20, alignItems: 'center', padding:5, backgroundColor: "#841584"}}
+            onPress={this.zerar}
+            accessibilityLabel="Zerar notas"
+          >
+            <Text style={{fontSize:20,color:'white'}}>Zerar</Text>
+          </TouchableOpacity>
         </View>
       </View>
     );
